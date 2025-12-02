@@ -6,7 +6,20 @@ export async function convert(
     outputType: string,
     file: Blob,
 ) {
-    const audioCodec = "pcm_s16le"; // will replace with switch cases later
+    //const audioCodec = "pcm_s16le"; // will replace with switch cases later
+    let audioCodec: string;
+
+    switch (outputType) {
+        case "webm":
+            audioCodec = "libopus";
+            break;
+        case "mp3":
+            audioCodec = "libmp3lame";
+            break;
+        default:
+            audioCodec = "pcm_s16le";
+            break;
+    }
 
     const inPath = `./tmp/ffmpeg-in-${Date.now()}-${crypto.randomUUID()}.${inputType}`;
     await Bun.write(inPath, file);
