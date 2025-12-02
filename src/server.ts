@@ -3,9 +3,11 @@ import { Elysia, status } from "elysia";
 import { openapi } from "@elysiajs/openapi";
 import { opentelemetry } from "@elysiajs/opentelemetry";
 import { convert } from "./convert";
+import cors from "@elysiajs/cors";
 
 const app = new Elysia()
   .listen(3000)
+  .use(cors())
   .use(openapi())
   .use(opentelemetry())
   .get("/", () => "Hello Elysia")
